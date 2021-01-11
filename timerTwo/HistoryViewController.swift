@@ -14,6 +14,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    let armat:Character = "√"
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let indent = "cellIndentifier"
         let cell = tableView.dequeueReusableCell(withIdentifier: indent) as! MyTableViewCell
@@ -23,11 +25,33 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.actionsLabel.text = UserDefaults.standard.string(forKey: String(indexPath.row )) ?? ""
         cell.resultLabel.text = UserDefaults.standard.string(forKey: cell.actionsLabel.text ?? "")
         
-        if Double(cell.resultLabel.text ?? "") == hashviObshin(str: cell.actionsLabel.text ?? "").0 ?? 0 {
+        if ((cell.actionsLabel.text?.contains(armat)) == false) &&  cell.actionsLabel.text?.contains("(") == false{
+        if Double(cell.resultLabel.text ?? "") == hashviObshin(str: cell.actionsLabel.text ?? "").0! {
             cell.resultLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         }else {
             cell.resultLabel.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.1083222023, blue: 0, alpha: 1)
-            cell.resultLabel.text = "wrong:\(cell.resultLabel.text ?? ""),  right:\(String(Int(hashviObshin(str: cell.actionsLabel.text ?? "").0 ?? 0)))"
+            cell.resultLabel.text = "wrong:\(cell.resultLabel.text ?? ""),  right:\(String(Int(hashviObshin(str: cell.actionsLabel.text ?? "").0!)))"
+        }
+            return cell
+        }
+        
+        if ((cell.actionsLabel.text?.contains(armat)) == true) {
+            if cell.resultLabel.text == String(Int(hashviMitTvovArmat(st: cell.actionsLabel.text ?? ""))) {
+                cell.resultLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+            }else {
+                cell.resultLabel.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.1083222023, blue: 0, alpha: 1)
+                cell.resultLabel.text = "wrong:\(cell.resultLabel.text ?? ""),  right:\(String(Int(hashviMitTvovArmat(st: cell.actionsLabel.text ?? ""))))"
+            }
+            return cell
+        }
+        if cell.actionsLabel.text?.contains("(") == true {
+            if Double(cell.resultLabel.text ?? "") == hashviMiPakagcovArjeq(st: cell.actionsLabel.text ?? "") {
+                cell.resultLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+            }else {
+                cell.resultLabel.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.1083222023, blue: 0, alpha: 1)
+                cell.resultLabel.text = "wrong:\(cell.resultLabel.text ?? ""),  right:\(String(Int(hashviMiPakagcovArjeq(st: cell.actionsLabel.text ?? ""))))"
+            }
+            return cell
         }
         
         return cell
@@ -36,6 +60,8 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         
         print(indexPath.row)
     }
+    
+    
     
 var rowCount = 0
 var actionResult = 0
@@ -64,7 +90,33 @@ var actionResult = 0
         // Pass the selected object to the new view controller.
     }
     */
+    func hashviMitTvovArmat(st:String) -> Double {
+        var arjeq:Double = 0
+        let r1 = st.firstIndex(of: "(")
+        let r2 = st.lastIndex(of: ")")
+        var pakagceriArjeqner = st[r1!..<r2!]
+        pakagceriArjeqner.removeFirst()
+        arjeq = (Double(pakagceriArjeqner)?.squareRoot())!
+        return arjeq
+    }
     
+    func hashviMiPakagcovArjeq(st:String) ->(Double) {
+        var arjeq:Double = 0
+    //    var pakagciMijiArjeq = matchesForRegexInText(regex: regex, text: st).joined()
+        var comp = st.components(separatedBy: ["("])
+        comp[1].removeLast()
+        comp[1] = String(hashviObshin(str: comp[1]).0!)
+//        comp.joined()
+        if comp.joined().contains("--") {
+          let hashvelun = comp.joined().replacingOccurrences(of: "--", with: "+")
+            arjeq = hashviObshin(str: hashvelun).0!
+        }else {
+            arjeq = hashviObshin(str: comp.joined()).0!
+        }
+       
+        return arjeq
+    }
+
     func hashviObshin (str:String) -> (Double?,String?) {
         if str == "" {
             return (0.0,"mutqagreq Arjeq")

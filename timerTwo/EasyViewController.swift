@@ -100,28 +100,6 @@ class EasyViewController: UIViewController {
             timer.invalidate()
             let allRow = correctAnswerCount + wrongAnswerCount
             performSegue(withIdentifier: "historyIdent", sender: (allRow,rowResult).self)
-//            if wrongAnswerCount > correctAnswerCount {
-//                message = "vata Shat vata hech lav chi :D"
-//            }else{
-//                message = "eli vochinch mecanas mard kdarnas"
-//            }
-//            let alertController = UIAlertController(title:"chisht - \(correctAnswerLabel.text ?? ""), sxal - \( wrongAnswerLabel.text ?? "")", message: message , preferredStyle: .alert)
-//            let alertAction = UIAlertAction(title: "sksel noric", style: .default) {
-//                action in
-//                self.time()
-//                self.refresh()
-//            }
-//            let alertAction2 = UIAlertAction(title: "veradarnal Naxord Ej", style: .default) {
-//                action in
-//                self.navigationController?.popViewController(animated: true)
-//            }
-//            alertController.addAction(alertAction)
-//            alertController.addAction(alertAction2)
-//            self.present(alertController, animated: false) {
-//                print("show present")
-//            }
-//
-            print(correctAnswerCount)
         }
         timeLabel.text = "\(counter)"
     }
