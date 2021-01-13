@@ -26,27 +26,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         return cell
     }
-    let lavelNamesArray = ["EASY","AVERAGE","ROOT","PERCENT","HARD"]
-    
+    let lavelNamesArray = ["EASY","ACTION WITH PARENTHESES","ROOT","PERCENT","HARD"]
+    var ident = ""
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            performSegue(withIdentifier: "easyIndent", sender: nil)
+            ident = "easyIndent"
+            performSegue(withIdentifier: ident, sender: (0...10))
         case 1:
+            ident = "averangeIndent"
             performSegue(withIdentifier: "averangeIndent", sender: nil)
         case 2:
+            ident = "rootIdent"
             performSegue(withIdentifier: "rootIdent", sender: nil)
         case 3:
+            ident = "percentIndent"
+            for i in 30...10000 {
+                if i % 100 == 0 {
+                    percentNum.append(Int(i))
+                }
+            }
             performSegue(withIdentifier: "percentIndent", sender: nil)
         case 4:
-            performSegue(withIdentifier: "hardIndent", sender: nil)
+            ident = "hardIndent"
+            performSegue(withIdentifier: ident, sender: (11...20))
         default:
             print("ok")
         }
     }
-    
-    
-    
     
     @IBOutlet var lavelTableView: UITableView!
     override func viewDidLoad() {
@@ -57,34 +64,50 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        a = 1
-        b = 1
-        print("02")
+        
+        
     }
     
-    var a = 1
-    var b = 1
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
+    let percent = [10,20,30,40,50,60,70,80,90,100]
+    var percentNum:[Int] = []
+    let rootNumbers = [1,4,9,16,25,36,49,64,81,100,121,144,169,196,225,256,289,324,361,400,625]
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if let vc = segue.destination as? EasyViewController {
-            if a == 2 {
-            vc.firstNum = (0...10).randomElement()!
-            vc.secondNum = (0...10).randomElement()!
+            if ident == "hardIndent" {
+                vc.firstNum = (11...20).randomElement()!
+                vc.secondNum = (11...20).randomElement()!
             }
-            if b == 2 {
-            vc.firstNum = (10...20).randomElement()!
-            vc.secondNum = (10...20).randomElement()!
+            if ident == "easyIndent" {
+                vc.firstNum = (0...10).randomElement()!
+                vc.secondNum = (0...10).randomElement()!
+            }
+            if ident == "percentIndent" {
+                vc.firstNum = percentNum.randomElement()!
+                vc.secondNum = percent.randomElement()!
+//                vc.thirdNum = (100...1000).randomElement()!
+                vc.action = "%"
+            }
+            if ident == "rootIdent" {
+                vc.firstNum = rootNumbers.randomElement()!
+                vc.action = "√"
+            }
+            if ident == "averangeIndent" {
+                vc.firstNum = (0...10).randomElement()!
+                vc.secondNum = (0...10).randomElement()!
+                vc.thirdNum = (0...10).randomElement()!
+                vc.action = "("
+
             }
             
         }
-    }
-    @IBAction func easyLavelPressed(_ sender: UIButton) {
-        a += 1
-        print("easy")
-    }
-
-    @IBAction func hardLavelPressed(_ sender: Any) {
-        b += 1
-        print("hard")
+        
     }
     
 

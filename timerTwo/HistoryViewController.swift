@@ -24,7 +24,15 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         //        cell.actionIndexLabel.text = String(indexPath.row )
         cell.actionsLabel.text = UserDefaults.standard.string(forKey: String(indexPath.row )) ?? ""
         cell.resultLabel.text = UserDefaults.standard.string(forKey: cell.actionsLabel.text ?? "")
-        
+        if ((cell.actionsLabel.text?.contains("%")) == true) {
+            if Double(cell.resultLabel.text ?? "") == hashviTokos(st: cell.actionsLabel.text ?? "").0! {
+                cell.resultLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+            }else {
+                cell.resultLabel.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.1083222023, blue: 0, alpha: 1)
+                cell.resultLabel.text = "wrong:\(cell.resultLabel.text ?? ""),  right:\(String(Int(hashviTokos(st: cell.actionsLabel.text ?? "").0!)))"
+            }
+                return cell
+        }
         if ((cell.actionsLabel.text?.contains(armat)) == false) &&  cell.actionsLabel.text?.contains("(") == false{
         if Double(cell.resultLabel.text ?? "") == hashviObshin(str: cell.actionsLabel.text ?? "").0! {
             cell.resultLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
@@ -90,6 +98,7 @@ var actionResult = 0
         // Pass the selected object to the new view controller.
     }
     */
+    
     func hashviMitTvovArmat(st:String) -> Double {
         var arjeq:Double = 0
         let r1 = st.firstIndex(of: "(")
@@ -100,22 +109,6 @@ var actionResult = 0
         return arjeq
     }
     
-    func hashviMiPakagcovArjeq(st:String) ->(Double) {
-        var arjeq:Double = 0
-    //    var pakagciMijiArjeq = matchesForRegexInText(regex: regex, text: st).joined()
-        var comp = st.components(separatedBy: ["("])
-        comp[1].removeLast()
-        comp[1] = String(hashviObshin(str: comp[1]).0!)
-//        comp.joined()
-        if comp.joined().contains("--") {
-          let hashvelun = comp.joined().replacingOccurrences(of: "--", with: "+")
-            arjeq = hashviObshin(str: hashvelun).0!
-        }else {
-            arjeq = hashviObshin(str: comp.joined()).0!
-        }
-       
-        return arjeq
-    }
 
     func hashviObshin (str:String) -> (Double?,String?) {
         if str == "" {
@@ -216,5 +209,92 @@ var actionResult = 0
         }
         return (sumBaz, nil)
     }
+    func hashviTokos (st:String) -> (Double? ,String? ) {
+        let componentsTokos = st.split(separator: "%")
+        var tokos:Double = 1
+        var componentsLastCount = 0
+        var datark = ""
+        var merUzac = ""
+        for i in componentsTokos {
+            let comp = i.components(separatedBy: ["+","-","*","/"])
+            if comp.count == 1 {
+                return (nil, "greq te vor tvi qani tokosn eq cankanum hashvel")
+            }
+            componentsLastCount = ((comp.last?.count ?? 0 ) + 2)
+            merUzac = String(st.suffix(componentsLastCount))
+            let arandzTokos = st.replacingOccurrences(of: merUzac, with: "")
+            let ardyunq = hashviObshin(str: arandzTokos)
+            if ardyunq.1 == nil  {
+                datark = String(ardyunq.0!)
+            }
+            else {
+                return (nil, "tiv@ chi bajanvum 0-i ")
+            }
+        }
+        let tokosiComp = merUzac.split(separator: "%")
+        let tokosComponentsFirst = String(tokosiComp[0]).first
+        
+        if tokosComponentsFirst == "+" {
+            let gumareluTokos = merUzac.components(separatedBy: ["+","%"])
+            if (Double(gumareluTokos[1]) ?? 0) == 0 {
+                return (nil, "tivy chi bajanvum 0-i")
+            }
+            let gumareluTokosDoublev = Double(gumareluTokos[1]) ?? 0
+            let arajiArdyunq = Double(datark) ?? 0
+            tokos = arajiArdyunq + ((arajiArdyunq * gumareluTokosDoublev) / 100)
+            return (tokos, nil)
+        }
+        if tokosComponentsFirst == "-" {
+            let gumareluTokos = merUzac.components(separatedBy: ["-","%"])
+            if (Double(gumareluTokos[1]) ?? 0) == 0 {
+                return (nil, "tivy chi bajanvum 0-i")
+            }
+            let gumareluTokosDoublev = Double(gumareluTokos[1]) ?? 0
+            let arajiArdyunq = Double(datark) ?? 0
+            tokos = arajiArdyunq - ((arajiArdyunq * gumareluTokosDoublev) / 100)
+            return (tokos, nil)
+        }
+        if tokosComponentsFirst == "/" {
+            let gumareluTokos = merUzac.components(separatedBy: ["/","%"])
+            if (Double(gumareluTokos[1]) ?? 0) == 0 {
+                return (nil, "tivy chi bajanvum 0-i")
+            }
+            let gumareluTokosDoublev = Double(gumareluTokos[1]) ?? 0
+            let arajiArdyunq = Double(datark) ?? 0
+            tokos = (arajiArdyunq * 100) / Double(gumareluTokosDoublev)
+            return (tokos, nil)
+        }
+        merUzac = datark + String(tokosiComp[0])
+        let verjnakanArdyunq = hashviObshin(str: merUzac)
+       if verjnakanArdyunq.1 == nil  {
+           tokos = verjnakanArdyunq.0! / 100
+       }
+       else {
+           return (nil, "tiv@ chi bajanvum 0-i ")
+       }
+     return (tokos,nil)
+    }
+    
+    func hashviMiPakagcovArjeq(st:String) ->(Double) {
+        var arjeq:Double = 0
+    //    var pakagciMijiArjeq = matchesForRegexInText(regex: regex, text: st).joined()
+        var comp = st.components(separatedBy: ["("])
+        comp[1].removeLast()
+        comp[1] = String(hashviObshin(str: comp[1]).0!)
+        let new = comp.joined()
+        if new.contains("*-") == true{
+            let newNew = new.replacingOccurrences(of: "*-", with: "*")
+            arjeq = -hashviObshin(str: newNew).0!
+        }
+        if comp.joined().contains("--") {
+          let hashvelun = comp.joined().replacingOccurrences(of: "--", with: "+")
+            arjeq = hashviObshin(str: hashvelun).0!
+        }else {
+            arjeq = hashviObshin(str: comp.joined()).0!
+        }
+       
+        return arjeq
+    }
+
 
 }
