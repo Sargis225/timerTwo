@@ -17,64 +17,80 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jwp-CE-sPZ">
-                                <rect key="frame" x="44" y="158" width="334" height="60"/>
+                                <rect key="frame" x="44" y="95" width="334" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" title="EASY"/>
                                 <connections>
                                     <action selector="easyLavelPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ais-wC-lAT"/>
-                                    <segue destination="eta-UN-Zx1" kind="show" id="HUa-cn-pUu"/>
+                                    <segue destination="eta-UN-Zx1" kind="show" identifier="easyIndent" id="HUa-cn-pUu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aor-qh-Uyy">
-                                <rect key="frame" x="44" y="221" width="334" height="59"/>
+                                <rect key="frame" x="44" y="158" width="334" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" title="AVERAGE"/>
                                 <connections>
-                                    <action selector="hardLavelPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SyI-3t-PD0"/>
-                                    <segue destination="0kr-OO-IjT" kind="show" id="MGp-to-ajr"/>
+                                    <segue destination="0kr-OO-IjT" kind="show" identifier="averangeIndent" id="MGp-to-ajr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79R-Gd-H7R">
-                                <rect key="frame" x="44" y="283" width="334" height="59"/>
+                                <rect key="frame" x="44" y="220" width="334" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" title="ROOT"/>
                                 <connections>
-                                    <action selector="hardLavelPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2VB-s4-mWf"/>
                                     <segue destination="zfl-Iy-dRp" kind="show" identifier="rootIdent" id="Yhz-fE-9Re"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pUf-iq-JD4">
-                                <rect key="frame" x="44" y="346" width="334" height="59"/>
+                                <rect key="frame" x="44" y="283" width="334" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" title="PERCENT"/>
                                 <connections>
-                                    <segue destination="1OC-bL-Pbf" kind="show" id="5VP-TN-Bi2"/>
+                                    <segue destination="1OC-bL-Pbf" kind="show" identifier="percentIndent" id="5VP-TN-Bi2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="67U-ON-0HD">
-                                <rect key="frame" x="44" y="409" width="334" height="59"/>
+                                <rect key="frame" x="44" y="346" width="334" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" title="HARD"/>
                                 <connections>
                                     <action selector="hardLavelPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aqW-jC-AHO"/>
-                                    <segue destination="eta-UN-Zx1" kind="show" id="vnD-SR-xri"/>
+                                    <segue destination="eta-UN-Zx1" kind="show" identifier="hardIndent" id="vnD-SR-xri"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="62" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SS1-hA-B2n">
+                                <rect key="frame" x="44" y="425" width="334" height="386"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="lavelsIndent" id="N4A-wN-tps" customClass="LavelsTableViewCell" customModule="timerTwo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="334" height="62"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N4A-wN-tps" id="PoE-89-hTG">
+                                            <rect key="frame" x="0.0" y="0.0" width="334" height="62"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="Wwa-t3-cdx"/>
+                    <connections>
+                        <outlet property="lavelTableView" destination="SS1-hA-B2n" id="Q8u-O0-DcK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -160,7 +176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dH7-SR-Fdg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1878" y="76"/>
+            <point key="canvasLocation" x="1988" y="-271"/>
         </scene>
         <!--Percent View Controller-->
         <scene sceneID="SNT-7L-7hx">

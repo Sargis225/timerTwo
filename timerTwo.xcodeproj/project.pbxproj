@@ -17,6 +17,7 @@
 		5263BA1425A7913F00DE9E30 /* timerTwoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5263BA1325A7913F00DE9E30 /* timerTwoTests.swift */; };
 		5263BA1F25A7914000DE9E30 /* timerTwoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5263BA1E25A7914000DE9E30 /* timerTwoUITests.swift */; };
 		5263BA3025A791AD00DE9E30 /* EasyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5263BA2F25A791AD00DE9E30 /* EasyViewController.swift */; };
+		526EF61D25AF2C6B00EA477A /* LavelsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526EF61C25AF2C6B00EA477A /* LavelsTableViewCell.swift */; };
 		529276C425A795AE000F5FD1 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529276C325A795AE000F5FD1 /* HistoryViewController.swift */; };
 		52C59C1D25A9B20B00F39A11 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C59C1C25A9B20B00F39A11 /* RootViewController.swift */; };
 		52C59C2225AA01A300F39A11 /* PercentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C59C2125AA01A300F39A11 /* PercentViewController.swift */; };
@@ -57,6 +58,7 @@
 		5263BA1E25A7914000DE9E30 /* timerTwoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timerTwoUITests.swift; sourceTree = "<group>"; };
 		5263BA2025A7914000DE9E30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5263BA2F25A791AD00DE9E30 /* EasyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyViewController.swift; sourceTree = "<group>"; };
+		526EF61C25AF2C6B00EA477A /* LavelsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LavelsTableViewCell.swift; sourceTree = "<group>"; };
 		529276C325A795AE000F5FD1 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		52C59C1C25A9B20B00F39A11 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		52C59C2125AA01A300F39A11 /* PercentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				5263B9FC25A7913F00DE9E30 /* AppDelegate.swift */,
 				5263B9FE25A7913F00DE9E30 /* SceneDelegate.swift */,
 				5263BA0025A7913F00DE9E30 /* ViewController.swift */,
+				526EF61C25AF2C6B00EA477A /* LavelsTableViewCell.swift */,
 				5263BA0225A7913F00DE9E30 /* Main.storyboard */,
 				5254DEC125A8AC3C00CC74C6 /* BracketActionViewController.swift */,
 				52F0E0A725A796C200BDCA2C /* MyTableViewCell.swift */,
@@ -278,6 +281,7 @@
 			files = (
 				5263BA3025A791AD00DE9E30 /* EasyViewController.swift in Sources */,
 				5263BA0125A7913F00DE9E30 /* ViewController.swift in Sources */,
+				526EF61D25AF2C6B00EA477A /* LavelsTableViewCell.swift in Sources */,
 				5263B9FD25A7913F00DE9E30 /* AppDelegate.swift in Sources */,
 				529276C425A795AE000F5FD1 /* HistoryViewController.swift in Sources */,
 				5254DEC225A8AC3C00CC74C6 /* BracketActionViewController.swift in Sources */,
