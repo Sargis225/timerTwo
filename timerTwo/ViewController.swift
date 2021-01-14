@@ -8,6 +8,10 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    // #TODO: sarqel nastroykeqy
+    
+    @IBOutlet var settingsButton: UIButton!
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return lavelNamesArray.count
     }
@@ -21,11 +25,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell.textLabel?.text = lavelNamesArray[indexPath.row]
         cell.textLabel?.textAlignment = .center
-        cell.textLabel?.font = UIFont(name: .init(), size: 40)
+//        cell.textLabel?.font = UIFont(name: .init(), size: 60)
+        cell.textLabel?.font = .boldSystemFont(ofSize: 26)
+
         cell.textLabel?.textColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
         cell.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        cell.layer.cornerRadius = 20
         return cell
     }
+    
+    
     let lavelNamesArray = ["EASY","ACTION WITH PARENTHESES","ROOT","PERCENT","HARD"]
     var ident = ""
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -58,19 +67,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var lavelTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        settingsButton.layer.cornerRadius = 20
         lavelTableView.delegate = self
         lavelTableView.dataSource = self
+        
+        
         // Do any additional setup after loading the view.
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        
-    }
+   
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
+            view.backgroundColor = colors
+            lavelTableView.backgroundColor = colors
+            settingsButton.backgroundColor = colors
+        }
     }
     
     let percent = [10,20,30,40,50,60,70,80,90,100]

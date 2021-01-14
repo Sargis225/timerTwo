@@ -11,6 +11,8 @@ class EasyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // #TODO: kloracnel komponentnery
+        counter = Int(UserDefaults.standard.string(forKey: "timeIntervalKey") ?? "") ?? 0
         if action == "%" {
 //            print("aaa")
             for i in 30...1000 {
@@ -25,6 +27,9 @@ class EasyViewController: UIViewController {
             }
         }
         time()
+        if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
+            view.backgroundColor = colors
+        }
         
         // Do any additional setup after loading the view.
     }
@@ -111,23 +116,6 @@ class EasyViewController: UIViewController {
         default:
             print("ok")
         }
-//        if action == "(" {
-//
-//        }
-//
-//        if action == "%" {
-//
-////            print("mhgvkjyhgk")
-//        }
-//
-//        if action == "√" {
-//
-//        }
-//
-//        if action == "" {
-//
-//        }
-        
     }
     
     func randomEllement() {
@@ -165,24 +153,6 @@ class EasyViewController: UIViewController {
         default:
             print("qo asacna")
         }
-        
-//        if action == "(" {
-//
-//        }
-//
-//        if action == "%" {
-//
-//        }
-//        if action == "√" {
-//
-//        }
-//
-//        if action == "" {
-//
-//
-//        }
-        
-        
     }
     
     @IBAction func sbrosPressed(_ sender: UIButton) {
@@ -191,7 +161,7 @@ class EasyViewController: UIViewController {
     }
     
     func refresh() {
-        counter = 60
+        counter = Int(UserDefaults.standard.string(forKey: "timeIntervalKey") ?? "") ?? 0
         correctAnswerCount = 0
         correctAnswerLabel.text = "0"
         wrongAnswerCount = 0

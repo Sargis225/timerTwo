@@ -81,12 +81,17 @@ var actionResult = 0
         myHistoryTableView.backgroundColor = .gray
         myHistoryTableView.dataSource = self
         myHistoryTableView.delegate = self
+        if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
+            view.backgroundColor = colors
+            myHistoryTableView.backgroundColor = colors
+        }
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         myHistoryTableView.reloadData()
+        
     }
 
     /*

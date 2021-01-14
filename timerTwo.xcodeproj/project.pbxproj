@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5204BD3025B044320010E684 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5204BD2F25B044320010E684 /* SettingsViewController.swift */; };
+		5204BD3525B0454C0010E684 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5204BD3425B0454C0010E684 /* SettingsTableViewCell.swift */; };
 		5263B9FD25A7913F00DE9E30 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5263B9FC25A7913F00DE9E30 /* AppDelegate.swift */; };
 		5263B9FF25A7913F00DE9E30 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5263B9FE25A7913F00DE9E30 /* SceneDelegate.swift */; };
 		5263BA0125A7913F00DE9E30 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5263BA0025A7913F00DE9E30 /* ViewController.swift */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5204BD2F25B044320010E684 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		5204BD3425B0454C0010E684 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		5263B9F925A7913F00DE9E30 /* timerTwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timerTwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5263B9FC25A7913F00DE9E30 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5263B9FE25A7913F00DE9E30 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 				5263BA0025A7913F00DE9E30 /* ViewController.swift */,
 				526EF61C25AF2C6B00EA477A /* LavelsTableViewCell.swift */,
 				5263BA0225A7913F00DE9E30 /* Main.storyboard */,
+				5204BD3425B0454C0010E684 /* SettingsTableViewCell.swift */,
+				5204BD2F25B044320010E684 /* SettingsViewController.swift */,
 				52F0E0A725A796C200BDCA2C /* MyTableViewCell.swift */,
 				529276C325A795AE000F5FD1 /* HistoryViewController.swift */,
 				5263BA2F25A791AD00DE9E30 /* EasyViewController.swift */,
@@ -272,11 +278,13 @@
 			files = (
 				5263BA3025A791AD00DE9E30 /* EasyViewController.swift in Sources */,
 				5263BA0125A7913F00DE9E30 /* ViewController.swift in Sources */,
+				5204BD3525B0454C0010E684 /* SettingsTableViewCell.swift in Sources */,
 				526EF61D25AF2C6B00EA477A /* LavelsTableViewCell.swift in Sources */,
 				5263B9FD25A7913F00DE9E30 /* AppDelegate.swift in Sources */,
 				529276C425A795AE000F5FD1 /* HistoryViewController.swift in Sources */,
 				5263B9FF25A7913F00DE9E30 /* SceneDelegate.swift in Sources */,
 				52F0E0A825A796C200BDCA2C /* MyTableViewCell.swift in Sources */,
+				5204BD3025B044320010E684 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
