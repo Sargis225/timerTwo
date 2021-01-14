@@ -8,18 +8,59 @@
 import UIKit
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 1
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        settingsTableView.delegate = self
+        settingsTableView.dataSource = self
+        
+        // Do any additional setup after loading the view.
+    }
+    var gameTime = ""
+    var selectColor = ""
+    var selectLanguage = ""
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        settingsTableView.reloadData()
+        let language = UserDefaults.standard.string(forKey: "languageKey")
+        switch language {
+        case "English":
+            gameTime = "Select game time"
+            selectColor = "Select background color"
+            selectLanguage = "Select language"
+        case "Հայերեն":
+            gameTime = "Ընտրեք ժամանակը"
+            selectColor = "Ընտրեք ետնագույնը"
+            selectLanguage = "Ընտրեք Լեզուն"
+        case "Русский":
+            gameTime = "Выбирайте время игры"
+            selectColor = "Выбирайте цвет"
+            selectLanguage = "Выбирайте язык"
+        default:
+            print("ok")
+        }
+
+        
+        if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
+            view.backgroundColor = colors
+            settingsTableView.backgroundColor = colors
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let indent = "settingsIndetifier"
         let cell = tableView.dequeueReusableCell(withIdentifier: indent) as! SettingsTableViewCell
-//        cell.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         cell.layer.cornerRadius = 20
         cell.textLabel?.textAlignment = .center
         if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
@@ -28,25 +69,23 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         cell.textLabel?.textColor = #colorLiteral(red: 0.1635166837, green: 0.3035069983, blue: 1, alpha: 1)
         cell.textLabel?.font = .boldSystemFont(ofSize: 30)
         if indexPath.section == 0 {
-            cell.textLabel?.text = colorsNameArray[indexPath.row]
-            cell.backgroundColor = colorsArray[indexPath.row]
+            cell.textLabel?.text = selectColor
         }
         if indexPath.section == 1 && indexPath.row == 0 {
-            cell.textLabel?.text = "Select game time"
+            cell.textLabel?.text = gameTime
+        }
+        if indexPath.section == 2  {
+            cell.textLabel?.text = selectLanguage
         }
         return cell
     }
     var label = UILabel()
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 && indexPath.row > 0{
-            let color = colorsArray[indexPath.row]
-            view.backgroundColor = color
-            settingsTableView.backgroundColor = color
-            settingsTableView.reloadData()
-            UserDefaults.standard.setColor(color: color, forKey: "colorsKey")
+        if indexPath.section == 0 {
+            performSegue(withIdentifier: "colorsIdent", sender: nil)
         }
-        if indexPath.section == 1 && indexPath.row == 0 {
+        if indexPath.section == 1  {
             tableView.cellForRow(at: indexPath)?.textLabel?.text = ""
             let slider = UISlider(frame: CGRect(x: 5, y: 3, width: (tableView.cellForRow(at: indexPath)?.frame.width)!  - 60, height: (tableView.cellForRow(at: indexPath)?.frame.height)! ))
             slider.maximumValue = 100
@@ -60,25 +99,19 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             label.text = String(Int(slider.value))
             tableView.cellForRow(at: indexPath)?.addSubview(label)
         }
+        if indexPath.section == 2  {
+            performSegue(withIdentifier: "languagesIdent", sender: nil)
+        }
     }
     
     @objc func sliderActionTimeInterval(_ sender:UISlider) {
         label.text = String(Int(sender.value))
         UserDefaults.standard.set(label.text ?? "",forKey: "timeIntervalKey")
-        
     }
     
     
-    let colorsNameArray = ["Select background color", "Light", "Dark", "Colored"]
-    let colorsArray:[UIColor] = [.clear,#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0),#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1),#colorLiteral(red: 0.4734648678, green: 0.7123732575, blue: 1, alpha: 1)]
     @IBOutlet var settingsTableView: UITableView!
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        settingsTableView.delegate = self
-        settingsTableView.dataSource = self
-        
-        // Do any additional setup after loading the view.
-    }
+    
     
 
     /*

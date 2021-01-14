@@ -18,7 +18,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+    var recodLabel = UILabel()
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let indent = "lavelsIndent"
         let cell = tableView.dequeueReusableCell(withIdentifier: indent) as! LavelsTableViewCell
@@ -26,16 +26,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.textLabel?.text = lavelNamesArray[indexPath.row]
         cell.textLabel?.textAlignment = .center
 //        cell.textLabel?.font = UIFont(name: .init(), size: 60)
-        cell.textLabel?.font = .boldSystemFont(ofSize: 26)
+        cell.textLabel?.font = .boldSystemFont(ofSize: 20)
 
         cell.textLabel?.textColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
         cell.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         cell.layer.cornerRadius = 20
+         recodLabel = UILabel(frame: CGRect(x: cell.frame.origin.x + 5, y: cell.frame.height / 2, width: cell.frame.width / 4, height: cell.frame.height / 2))
+        recodLabel.backgroundColor = .clear
+        recodLabel.text = "\(record) -"
+        recodLabel.textColor = cell.textLabel?.textColor
+        recodLabel.layer.cornerRadius = 20
+        cell.addSubview(recodLabel)
         return cell
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        recodLabel.text = ""
+    }
     
-    
-    let lavelNamesArray = ["EASY","ACTION WITH PARENTHESES","ROOT","PERCENT","HARD"]
+    var lavelNamesArray:[String] = []
     var ident = ""
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
@@ -70,18 +79,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         settingsButton.layer.cornerRadius = 20
         lavelTableView.delegate = self
         lavelTableView.dataSource = self
-        
-        
         // Do any additional setup after loading the view.
     }
    
-    
+    var record = ""
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
             view.backgroundColor = colors
             lavelTableView.backgroundColor = colors
             settingsButton.backgroundColor = colors
+        }
+//        "EASY","ACTION WITH PARENTHESES","ROOT","PERCENT","HARD"
+        lavelTableView.reloadData()
+        let language = UserDefaults.standard.string(forKey: "languageKey")
+        switch language {
+        case "English":
+            lavelNamesArray = ["EASY","BRACKET OPERATION","ROOT","PERCENT","HARD"]
+            settingsButton.setTitle("SETTINGS", for: .normal)
+            record = "Record"
+        case "Հայերեն":
+            lavelNamesArray = ["Հեշտ","Փակագիծ","Արմատ","Տոկոս","Դժվար"]
+            settingsButton.setTitle("ԿԱՐԳԱՎՈՐՈՒՄՆԵՐ", for: .normal)
+            record = "Ռեկորդ"
+        case "Русский":
+            lavelNamesArray = ["Легко","Операция скобки","Корен","Проценты","Трудно"]
+            settingsButton.setTitle("Настройки", for: .normal)
+            record = "Рекорд"
+        default:
+            print("ok")
         }
     }
     

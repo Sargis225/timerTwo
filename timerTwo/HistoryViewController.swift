@@ -15,21 +15,49 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
         return 1
     }
     let armat:Character = "√"
+    var wrong = ""
+    var right = ""
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        myHistoryTableView.reloadData()
+        if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
+            view.backgroundColor = colors
+            myHistoryTableView.backgroundColor = colors
+        }
+        let language = UserDefaults.standard.string(forKey: "languageKey")
+        switch language {
+        case "English":
+            wrong = "wrong"
+            right = "right"
+        case "Հայերեն":
+            wrong = "Սխալ"
+            right = "Ճիշտ"
+        case "Русский":
+            wrong = "Неправильно"
+            right = "Правильно"
+        default:
+            print("ok")
+        }
 
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let indent = "cellIndentifier"
         let cell = tableView.dequeueReusableCell(withIdentifier: indent) as! MyTableViewCell
-        cell.backgroundColor = .darkGray
+        if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
+            cell.backgroundColor = colors
+        }
         cell.textLabel?.textColor = .white
         //        cell.actionIndexLabel.text = String(indexPath.row )
         cell.actionsLabel.text = UserDefaults.standard.string(forKey: String(indexPath.row )) ?? ""
-        cell.resultLabel.text = UserDefaults.standard.string(forKey: cell.actionsLabel.text ?? "")
+        cell.resultLabel.text = UserDefaults.standard.string(forKey:cell.actionsLabel.text ?? "")
+        
         if ((cell.actionsLabel.text?.contains("%")) == true) {
             if Double(cell.resultLabel.text ?? "") == hashviTokos(st: cell.actionsLabel.text ?? "").0! {
                 cell.resultLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
             }else {
                 cell.resultLabel.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.1083222023, blue: 0, alpha: 1)
-                cell.resultLabel.text = "wrong:\(cell.resultLabel.text ?? ""),  right:\(String(Int(hashviTokos(st: cell.actionsLabel.text ?? "").0!)))"
+                cell.resultLabel.text = "\(wrong):\(cell.resultLabel.text ?? ""),  \(right):\(String(Int(hashviTokos(st: cell.actionsLabel.text ?? "").0!)))"
             }
                 return cell
         }
@@ -38,7 +66,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.resultLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         }else {
             cell.resultLabel.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.1083222023, blue: 0, alpha: 1)
-            cell.resultLabel.text = "wrong:\(cell.resultLabel.text ?? ""),  right:\(String(Int(hashviObshin(str: cell.actionsLabel.text ?? "").0!)))"
+            cell.resultLabel.text = "\(wrong):\(cell.resultLabel.text ?? ""),  \(right):\(String(Int(hashviObshin(str: cell.actionsLabel.text ?? "").0!)))"
         }
             return cell
         }
@@ -48,7 +76,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
                 cell.resultLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
             }else {
                 cell.resultLabel.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.1083222023, blue: 0, alpha: 1)
-                cell.resultLabel.text = "wrong:\(cell.resultLabel.text ?? ""),  right:\(String(Int(hashviMitTvovArmat(st: cell.actionsLabel.text ?? ""))))"
+                cell.resultLabel.text = "\(wrong):\(cell.resultLabel.text ?? ""),  \(right):\(String(Int(hashviMitTvovArmat(st: cell.actionsLabel.text ?? ""))))"
             }
             return cell
         }
@@ -57,7 +85,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
                 cell.resultLabel.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
             }else {
                 cell.resultLabel.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.1083222023, blue: 0, alpha: 1)
-                cell.resultLabel.text = "wrong:\(cell.resultLabel.text ?? ""),  right:\(String(Int(hashviMiPakagcovArjeq(st: cell.actionsLabel.text ?? ""))))"
+                cell.resultLabel.text = "\(wrong):\(cell.resultLabel.text ?? ""),  \(right):\(String(Int(hashviMiPakagcovArjeq(st: cell.actionsLabel.text ?? ""))))"
             }
             return cell
         }
@@ -81,18 +109,11 @@ var actionResult = 0
         myHistoryTableView.backgroundColor = .gray
         myHistoryTableView.dataSource = self
         myHistoryTableView.delegate = self
-        if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
-            view.backgroundColor = colors
-            myHistoryTableView.backgroundColor = colors
-        }
+        
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        myHistoryTableView.reloadData()
-        
-    }
+    
 
     /*
     // MARK: - Navigation

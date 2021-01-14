@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5204BD3025B044320010E684 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5204BD2F25B044320010E684 /* SettingsViewController.swift */; };
 		5204BD3525B0454C0010E684 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5204BD3425B0454C0010E684 /* SettingsTableViewCell.swift */; };
+		5204BD3A25B059E20010E684 /* LanguagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5204BD3925B059E20010E684 /* LanguagesTableViewController.swift */; };
+		5204BD3F25B0698A0010E684 /* ColorsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5204BD3E25B0698A0010E684 /* ColorsTableViewController.swift */; };
 		5263B9FD25A7913F00DE9E30 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5263B9FC25A7913F00DE9E30 /* AppDelegate.swift */; };
 		5263B9FF25A7913F00DE9E30 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5263B9FE25A7913F00DE9E30 /* SceneDelegate.swift */; };
 		5263BA0125A7913F00DE9E30 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5263BA0025A7913F00DE9E30 /* ViewController.swift */; };
@@ -43,6 +45,8 @@
 /* Begin PBXFileReference section */
 		5204BD2F25B044320010E684 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5204BD3425B0454C0010E684 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		5204BD3925B059E20010E684 /* LanguagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagesTableViewController.swift; sourceTree = "<group>"; };
+		5204BD3E25B0698A0010E684 /* ColorsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsTableViewController.swift; sourceTree = "<group>"; };
 		5263B9F925A7913F00DE9E30 /* timerTwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timerTwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5263B9FC25A7913F00DE9E30 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5263B9FE25A7913F00DE9E30 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 		5263B9F025A7913F00DE9E30 = {
 			isa = PBXGroup;
 			children = (
+				5204BD3E25B0698A0010E684 /* ColorsTableViewController.swift */,
+				5204BD3925B059E20010E684 /* LanguagesTableViewController.swift */,
 				5263B9FB25A7913F00DE9E30 /* timerTwo */,
 				5263BA1225A7913F00DE9E30 /* timerTwoTests */,
 				5263BA1D25A7914000DE9E30 /* timerTwoUITests */,
@@ -276,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5204BD3F25B0698A0010E684 /* ColorsTableViewController.swift in Sources */,
 				5263BA3025A791AD00DE9E30 /* EasyViewController.swift in Sources */,
 				5263BA0125A7913F00DE9E30 /* ViewController.swift in Sources */,
 				5204BD3525B0454C0010E684 /* SettingsTableViewCell.swift in Sources */,
@@ -283,6 +290,7 @@
 				5263B9FD25A7913F00DE9E30 /* AppDelegate.swift in Sources */,
 				529276C425A795AE000F5FD1 /* HistoryViewController.swift in Sources */,
 				5263B9FF25A7913F00DE9E30 /* SceneDelegate.swift in Sources */,
+				5204BD3A25B059E20010E684 /* LanguagesTableViewController.swift in Sources */,
 				52F0E0A825A796C200BDCA2C /* MyTableViewCell.swift in Sources */,
 				5204BD3025B044320010E684 /* SettingsViewController.swift in Sources */,
 			);
