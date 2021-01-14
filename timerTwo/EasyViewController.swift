@@ -26,10 +26,20 @@ class EasyViewController: UIViewController {
                 }
             }
         }
+        
         time()
         if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
             view.backgroundColor = colors
         }
+//        switch gameDifficulty {
+//        case .easy:
+//            <#code#>
+//        case .averange: {
+//
+//        }
+//        default:
+//            <#code#>
+//        }
         
         // Do any additional setup after loading the view.
     }
@@ -53,6 +63,7 @@ class EasyViewController: UIViewController {
     var correctAnswerCount = 0
     var wrongAnswerCount = 0
     var rowResult = 0
+    var gameDifficulty:GameDifficulty!
     
     @IBAction func resultTextFieldAction(_ sender: UITextField) {
         rowResult = Int(sender.text ?? "") ?? 0

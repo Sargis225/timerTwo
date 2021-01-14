@@ -9,6 +9,9 @@ import UIKit
 
 class LavelsTableViewCell: UITableViewCell {
 
+    
+    @IBOutlet var recordLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

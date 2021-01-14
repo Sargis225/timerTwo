@@ -63,6 +63,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: indent) as! SettingsTableViewCell
         cell.layer.cornerRadius = 20
         cell.textLabel?.textAlignment = .center
+        cell.hideSlider()
         if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
             cell.backgroundColor = colors
         }
@@ -86,28 +87,16 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             performSegue(withIdentifier: "colorsIdent", sender: nil)
         }
         if indexPath.section == 1  {
-            tableView.cellForRow(at: indexPath)?.textLabel?.text = ""
-            let slider = UISlider(frame: CGRect(x: 5, y: 3, width: (tableView.cellForRow(at: indexPath)?.frame.width)!  - 60, height: (tableView.cellForRow(at: indexPath)?.frame.height)! ))
-            slider.maximumValue = 100
-            slider.minimumValue = 30
-            slider.value = 60
-            slider.addTarget(self, action: #selector(sliderActionTimeInterval), for: .allEvents)
-            tableView.cellForRow(at: indexPath)?.addSubview(slider)
-            label = UILabel(frame: CGRect(x: slider.frame.width + 10, y: slider.frame.origin.y + 10, width: 30, height: 30))
-            label.backgroundColor = #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
-            label.textColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            label.text = String(Int(slider.value))
-            tableView.cellForRow(at: indexPath)?.addSubview(label)
+            let cell = tableView.cellForRow(at: indexPath) as! SettingsTableViewCell
+            cell.textLabel?.text = ""
+            cell.showSlider()
         }
         if indexPath.section == 2  {
             performSegue(withIdentifier: "languagesIdent", sender: nil)
         }
     }
     
-    @objc func sliderActionTimeInterval(_ sender:UISlider) {
-        label.text = String(Int(sender.value))
-        UserDefaults.standard.set(label.text ?? "",forKey: "timeIntervalKey")
-    }
+
     
     
     @IBOutlet var settingsTableView: UITableView!

@@ -6,7 +6,13 @@
 //
 
 import UIKit
-
+enum GameDifficulty {
+    case easy
+    case averange
+    case root
+    case percent
+    case hard
+}
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // #TODO: sarqel nastroykeqy
     
@@ -18,7 +24,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    var recodLabel = UILabel()
+//    var recodLabel = UILabel()
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let indent = "lavelsIndent"
         let cell = tableView.dequeueReusableCell(withIdentifier: indent) as! LavelsTableViewCell
@@ -31,33 +37,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.textLabel?.textColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
         cell.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         cell.layer.cornerRadius = 20
-         recodLabel = UILabel(frame: CGRect(x: cell.frame.origin.x + 5, y: cell.frame.height / 2, width: cell.frame.width / 4, height: cell.frame.height / 2))
-        recodLabel.backgroundColor = .clear
-        recodLabel.text = "\(record) -"
-        recodLabel.textColor = cell.textLabel?.textColor
-        recodLabel.layer.cornerRadius = 20
-        cell.addSubview(recodLabel)
+        cell.recordLabel.text = "\(record) -"
+        
+//       let recodLabel = UILabel(frame: CGRect(x: cell.frame.origin.x + 5, y: cell.frame.height / 2, width: cell.frame.width / 4, height: cell.frame.height / 2))
+//        recodLabel.backgroundColor = .clear
+//
+//        recodLabel.textColor = cell.textLabel?.textColor
+//        recodLabel.layer.cornerRadius = 20
+//        cell.addSubview(recodLabel)
         return cell
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        recodLabel.text = ""
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+//        recodLabel.text = ""
     }
     
     var lavelNamesArray:[String] = []
     var ident = ""
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let gamePlay:GameDifficulty
         switch indexPath.row {
         case 0:
+            gamePlay = .easy
             ident = "easyIndent"
             performSegue(withIdentifier: ident, sender: (0...10))
         case 1:
+            gamePlay = .averange
             ident = "averangeIndent"
-            performSegue(withIdentifier: "averangeIndent", sender: nil)
+            performSegue(withIdentifier: ident, sender: nil)
         case 2:
+            gamePlay = .root
             ident = "rootIdent"
             performSegue(withIdentifier: "rootIdent", sender: nil)
         case 3:
+            gamePlay = .percent
             ident = "percentIndent"
             for i in 30...10000 {
                 if i % 100 == 0 {
@@ -66,6 +80,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             performSegue(withIdentifier: "percentIndent", sender: nil)
         case 4:
+            gamePlay = .hard
             ident = "hardIndent"
             performSegue(withIdentifier: ident, sender: (11...20))
         default:
@@ -85,6 +100,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var record = ""
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        settingsButton.titleLabel?.adjustsFontSizeToFitWidth = true
         if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
             view.backgroundColor = colors
             lavelTableView.backgroundColor = colors
@@ -129,7 +145,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if ident == "percentIndent" {
                 vc.firstNum = percentNum.randomElement()!
                 vc.secondNum = percent.randomElement()!
-//                vc.thirdNum = (100...1000).randomElement()!
                 vc.action = "%"
             }
             if ident == "rootIdent" {
