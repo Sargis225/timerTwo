@@ -21,10 +21,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         settingsTableView.delegate = self
         settingsTableView.dataSource = self
-        
         // Do any additional setup after loading the view.
     }
     var gameTime = ""

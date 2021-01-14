@@ -13,7 +13,7 @@ class EasyViewController: UIViewController {
         super.viewDidLoad()
         // #TODO: kloracnel komponentnery
         counter = Int(UserDefaults.standard.string(forKey: "timeIntervalKey") ?? "") ?? 0
-        if action == "%" {
+        if gameType! == .percent {
 //            print("aaa")
             for i in 30...1000 {
                 if i % 100 == 0 {
@@ -26,21 +26,11 @@ class EasyViewController: UIViewController {
                 }
             }
         }
-        
+        print(gameType!)
         time()
         if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
             view.backgroundColor = colors
         }
-//        switch gameDifficulty {
-//        case .easy:
-//            <#code#>
-//        case .averange: {
-//
-//        }
-//        default:
-//            <#code#>
-//        }
-        
         // Do any additional setup after loading the view.
     }
     @IBOutlet var timeLabel: UILabel!
@@ -56,20 +46,19 @@ class EasyViewController: UIViewController {
     let actions:[((Int,Int) -> Int,String)] = [((+), "+"), ((-), "-"), ((*), "*"), ((/), "/")]
     var percent:[Int] = []
     var percentNum:[Int] = []
-    var action = ""
     var gorcoxutyanIndexPakagciMej = 0
     let rootNumbers = [1,4,9,16,25,36,49,64,81,100,121,144,169,196,225,256,289,324,361,400,625]
     var gorcoxutyanIndex = 0
     var correctAnswerCount = 0
     var wrongAnswerCount = 0
     var rowResult = 0
-    var gameDifficulty:GameDifficulty!
-    
+    var gameType:GameDifficulty!
+
     @IBAction func resultTextFieldAction(_ sender: UITextField) {
         rowResult = Int(sender.text ?? "") ?? 0
         UserDefaults.standard.set(sender.text,forKey: actionLabel.text ?? "")
-        switch action  {
-        case "(":
+        switch gameType!  {
+        case .averange:
             if (Int(sender.text ?? "") ?? 0) == Int(hashviMiPakagcovArjeq(st: actionLabel.text ?? "")) {
                 correctAnswerCount += 1
                 correctAnswerLabel.text = String(correctAnswerCount)
@@ -82,7 +71,7 @@ class EasyViewController: UIViewController {
                 randomEllement()
                 sender.text = ""
             }
-        case "%":
+        case .percent:
             if (Double(sender.text ?? "") ?? 0) == hashviTokos(st: actionLabel.text ?? "").0!{
                 correctAnswerCount += 1
                 correctAnswerLabel.text = String(correctAnswerCount)
@@ -96,7 +85,7 @@ class EasyViewController: UIViewController {
                 sender.text = ""
             }
         
-        case "√":
+        case .root:
             if (Int(sender.text!) ?? 0).qarakusin == firstNum{
                 correctAnswerCount += 1
                 correctAnswerLabel.text = String(correctAnswerCount)
@@ -107,10 +96,8 @@ class EasyViewController: UIViewController {
                 wrongAnswerLabel.text = String(wrongAnswerCount)
                 randomEllement()
                 sender.text = ""
-                
             }
-        
-        case "":
+        case .easy:
             if (Int(sender.text ?? "") ?? 0) == actions[gorcoxutyanIndex].0(firstNum,secondNum) {
                 correctAnswerCount += 1
                 correctAnswerLabel.text = String(correctAnswerCount)
@@ -122,45 +109,53 @@ class EasyViewController: UIViewController {
                 wrongAnswerLabel.text = String(wrongAnswerCount)
                 randomEllement()
                 sender.text = ""
-                
             }
-        default:
-            print("ok")
+        case .hard:
+            if (Int(sender.text ?? "") ?? 0) == actions[gorcoxutyanIndex].0(firstNum,secondNum) {
+                correctAnswerCount += 1
+                correctAnswerLabel.text = String(correctAnswerCount)
+                randomEllement()
+                sender.text = ""
+            }
+            else {
+                wrongAnswerCount += 1
+                wrongAnswerLabel.text = String(wrongAnswerCount)
+                randomEllement()
+                sender.text = ""
+            }
         }
     }
     
     func randomEllement() {
         gorcoxutyanIndex = Int.random(in: 0...2)
-        switch action  {
-        case "(":
+        switch gameType  {
+        case .averange:
             firstNum = (0...10).randomElement()!
             secondNum = (0...10).randomElement()!
             thirdNum = (0...10).randomElement()!
             gorcoxutyanIndexPakagciMej = Int.random(in: 0...2)
             actionLabel.text = "\(firstNum)\(actions[gorcoxutyanIndex].1)(\(secondNum)\(actions[gorcoxutyanIndexPakagciMej].1)\(thirdNum))"
             UserDefaults.standard.set("\(firstNum)\(actions[gorcoxutyanIndex].1)(\(secondNum)\(actions[gorcoxutyanIndexPakagciMej].1)\(thirdNum))",forKey: String(correctAnswerCount + wrongAnswerCount))
-        case "%":
+        case .percent:
             firstNum = percentNum.randomElement()!
             secondNum = percent.randomElement()!
             actionLabel.text = "\(firstNum)\(actions[gorcoxutyanIndex].1)\(secondNum)%"
             UserDefaults.standard.set("\(firstNum)\(actions[gorcoxutyanIndex].1)\(secondNum)%",forKey: String(correctAnswerCount + wrongAnswerCount))
-        case "√":
+        case .root:
             firstNum = rootNumbers.randomElement()!
             actionLabel.text = "√(\(firstNum))"
             UserDefaults.standard.set("√(\(firstNum))", forKey: String(correctAnswerCount + wrongAnswerCount))
-        case "":
-            if 0...10 ~= firstNum{
-                firstNum = (0...10).randomElement()!
-                secondNum = (0...10).randomElement()!
-                actionLabel.text = "\(firstNum)\(actions[gorcoxutyanIndex].1)\(secondNum)"
-                UserDefaults.standard.set("\(firstNum)\(actions[gorcoxutyanIndex].1)\(secondNum)",forKey: String(correctAnswerCount + wrongAnswerCount))
-            }
-            if 11...20 ~= firstNum{
-                firstNum = (11...20).randomElement()!
-                secondNum = (11...20).randomElement()!
-                actionLabel.text = "\(firstNum)\(actions[gorcoxutyanIndex].1)\(secondNum)"
-                UserDefaults.standard.set("\(firstNum)\(actions[gorcoxutyanIndex].1)\(secondNum)",forKey: String(correctAnswerCount + wrongAnswerCount))
-            }
+        case .easy:
+            firstNum = (0...10).randomElement()!
+            secondNum = (0...10).randomElement()!
+            actionLabel.text = "\(firstNum)\(actions[gorcoxutyanIndex].1)\(secondNum)"
+            UserDefaults.standard.set("\(firstNum)\(actions[gorcoxutyanIndex].1)\(secondNum)",forKey: String(correctAnswerCount + wrongAnswerCount))
+        case .hard:
+            firstNum = (11...20).randomElement()!
+            secondNum = (11...20).randomElement()!
+            actionLabel.text = "\(firstNum)\(actions[gorcoxutyanIndex].1)\(secondNum)"
+            UserDefaults.standard.set("\(firstNum)\(actions[gorcoxutyanIndex].1)\(secondNum)",forKey: String(correctAnswerCount + wrongAnswerCount))
+            
         default:
             print("qo asacna")
         }

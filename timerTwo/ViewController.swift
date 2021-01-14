@@ -14,7 +14,6 @@ enum GameDifficulty {
     case hard
 }
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    // #TODO: sarqel nastroykeqy
     
     @IBOutlet var settingsButton: UIButton!
     
@@ -24,68 +23,46 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-//    var recodLabel = UILabel()
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let indent = "lavelsIndent"
         let cell = tableView.dequeueReusableCell(withIdentifier: indent) as! LavelsTableViewCell
-        
         cell.textLabel?.text = lavelNamesArray[indexPath.row]
         cell.textLabel?.textAlignment = .center
-//        cell.textLabel?.font = UIFont(name: .init(), size: 60)
         cell.textLabel?.font = .boldSystemFont(ofSize: 20)
-
         cell.textLabel?.textColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+        cell.textLabel?.adjustsFontSizeToFitWidth = .init()
         cell.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         cell.layer.cornerRadius = 20
-        cell.recordLabel.text = "\(record) -"
-        
-//       let recodLabel = UILabel(frame: CGRect(x: cell.frame.origin.x + 5, y: cell.frame.height / 2, width: cell.frame.width / 4, height: cell.frame.height / 2))
-//        recodLabel.backgroundColor = .clear
-//
-//        recodLabel.textColor = cell.textLabel?.textColor
-//        recodLabel.layer.cornerRadius = 20
-//        cell.addSubview(recodLabel)
+        cell.recordLabel.text = "\(record) - "
         return cell
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-//        recodLabel.text = ""
     }
     
     var lavelNamesArray:[String] = []
     var ident = ""
+    var gamePlay:GameDifficulty!
+    var gameType = GameDifficulty.self
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let gamePlay:GameDifficulty
+        
+        ident = "goGameIdent"
+        
         switch indexPath.row {
         case 0:
-            gamePlay = .easy
-            ident = "easyIndent"
-            performSegue(withIdentifier: ident, sender: (0...10))
+            gamePlay = gameType.easy
         case 1:
-            gamePlay = .averange
-            ident = "averangeIndent"
-            performSegue(withIdentifier: ident, sender: nil)
+            gamePlay = gameType.averange
         case 2:
-            gamePlay = .root
-            ident = "rootIdent"
-            performSegue(withIdentifier: "rootIdent", sender: nil)
+            gamePlay = gameType.root
         case 3:
-            gamePlay = .percent
-            ident = "percentIndent"
-            for i in 30...10000 {
-                if i % 100 == 0 {
-                    percentNum.append(Int(i))
-                }
-            }
-            performSegue(withIdentifier: "percentIndent", sender: nil)
+            gamePlay = gameType.percent
         case 4:
-            gamePlay = .hard
-            ident = "hardIndent"
-            performSegue(withIdentifier: ident, sender: (11...20))
+            gamePlay = gameType.hard
+        case 5:
+            performSegue(withIdentifier: "chooseTheAnswerIdent", sender: nil)
+            return
         default:
             print("ok")
         }
+        performSegue(withIdentifier: "goGameIdent", sender: gamePlay)
     }
     
     @IBOutlet var lavelTableView: UITableView!
@@ -100,69 +77,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var record = ""
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        settingsButton.titleLabel?.adjustsFontSizeToFitWidth = true
         if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
             view.backgroundColor = colors
             lavelTableView.backgroundColor = colors
             settingsButton.backgroundColor = colors
         }
-//        "EASY","ACTION WITH PARENTHESES","ROOT","PERCENT","HARD"
         lavelTableView.reloadData()
         let language = UserDefaults.standard.string(forKey: "languageKey")
         switch language {
         case "English":
-            lavelNamesArray = ["EASY","BRACKET OPERATION","ROOT","PERCENT","HARD"]
-            settingsButton.setTitle("SETTINGS", for: .normal)
+            lavelNamesArray = ["EASY","BRACKET OPERATION","ROOT","PERCENT","HARD","Choose the answer"]
             record = "Record"
         case "Հայերեն":
-            lavelNamesArray = ["Հեշտ","Փակագիծ","Արմատ","Տոկոս","Դժվար"]
-            settingsButton.setTitle("ԿԱՐԳԱՎՈՐՈՒՄՆԵՐ", for: .normal)
+            lavelNamesArray = ["Հեշտ","Փակագիծ","Արմատ","Տոկոս","Դժվար","yntreq patasxany"]
             record = "Ռեկորդ"
         case "Русский":
-            lavelNamesArray = ["Легко","Операция скобки","Корен","Проценты","Трудно"]
-            settingsButton.setTitle("Настройки", for: .normal)
+            lavelNamesArray = ["Легко","Операция скобки","Корен","Проценты","Трудно","vibirayte otvet"]
             record = "Рекорд"
         default:
             print("ok")
         }
     }
     
-    let percent = [10,20,30,40,50,60,70,80,90,100]
-    var percentNum:[Int] = []
-    let rootNumbers = [1,4,9,16,25,36,49,64,81,100,121,144,169,196,225,256,289,324,361,400,625]
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let vc = segue.destination as? EasyViewController {
-            if ident == "hardIndent" {
-                vc.firstNum = (11...20).randomElement()!
-                vc.secondNum = (11...20).randomElement()!
+            if ident == "goGameIdent" {
+                vc.gameType = gamePlay
             }
-            if ident == "easyIndent" {
-                vc.firstNum = (0...10).randomElement()!
-                vc.secondNum = (0...10).randomElement()!
-            }
-            if ident == "percentIndent" {
-                vc.firstNum = percentNum.randomElement()!
-                vc.secondNum = percent.randomElement()!
-                vc.action = "%"
-            }
-            if ident == "rootIdent" {
-                vc.firstNum = rootNumbers.randomElement()!
-                vc.action = "√"
-            }
-            if ident == "averangeIndent" {
-                vc.firstNum = (0...10).randomElement()!
-                vc.secondNum = (0...10).randomElement()!
-                vc.thirdNum = (0...10).randomElement()!
-                vc.action = "("
-
-            }
-            
         }
-        
     }
-    
-
 }
 
