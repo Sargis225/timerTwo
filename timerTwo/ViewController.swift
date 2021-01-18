@@ -77,6 +77,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var record = ""
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
             view.backgroundColor = colors
             lavelTableView.backgroundColor = colors
@@ -89,10 +90,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             lavelNamesArray = ["EASY","BRACKET OPERATION","ROOT","PERCENT","HARD","Choose the answer"]
             record = "Record"
         case "Հայերեն":
-            lavelNamesArray = ["Հեշտ","Փակագիծ","Արմատ","Տոկոս","Դժվար","yntreq patasxany"]
+            lavelNamesArray = ["Հեշտ","Փակագիծ","Արմատ","Տոկոս","Դժվար","Ընտրեք պատասխանը"]
             record = "Ռեկորդ"
         case "Русский":
-            lavelNamesArray = ["Легко","Операция скобки","Корен","Проценты","Трудно","vibirayte otvet"]
+            lavelNamesArray = ["Легко","Операция скобки","Корен","Проценты","Трудно","Выберите ответ"]
             record = "Рекорд"
         default:
             print("ok")
