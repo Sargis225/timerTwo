@@ -14,7 +14,7 @@ class EasyViewController: UIViewController {
         // #TODO: kloracnel komponentnery
         counter = Int(UserDefaults.standard.string(forKey: "timeIntervalKey") ?? "") ?? 0
         if gameType! == .percent {
-//            print("aaa")
+            //            print("aaa")
             for i in 30...1000 {
                 if i % 100 == 0 {
                     percentNum.append(Int(i))
@@ -53,75 +53,59 @@ class EasyViewController: UIViewController {
     var wrongAnswerCount = 0
     var rowResult = 0
     var gameType:GameDifficulty!
-
+    
+    func correct (textF:UITextField,st:String) {
+        correctAnswerCount += 1
+        UserDefaults.standard.set(correctAnswerCount,forKey: st)
+        correctAnswerLabel.text = String(correctAnswerCount)
+        randomEllement()
+        textF.text = ""
+    }
+    func wrong (textF:UITextField) {
+        wrongAnswerCount += 1
+        wrongAnswerLabel.text = String(wrongAnswerCount)
+        randomEllement()
+        textF.text = ""
+    }
+    
     @IBAction func resultTextFieldAction(_ sender: UITextField) {
         rowResult = Int(sender.text ?? "") ?? 0
         UserDefaults.standard.set(sender.text,forKey: actionLabel.text ?? "")
         switch gameType!  {
         case .averange:
             if (Int(sender.text ?? "") ?? 0) == Int(hashviMiPakagcovArjeq(st: actionLabel.text ?? "")) {
-                correctAnswerCount += 1
-                correctAnswerLabel.text = String(correctAnswerCount)
-                randomEllement()
-                sender.text = ""
+                correct(textF: sender, st: "averangeCorrectAnswerKey")
             }
             else {
-                wrongAnswerCount += 1
-                wrongAnswerLabel.text = String(wrongAnswerCount)
-                randomEllement()
-                sender.text = ""
+                wrong(textF: sender)
             }
         case .percent:
             if (Double(sender.text ?? "") ?? 0) == hashviTokos(st: actionLabel.text ?? "").0!{
-                correctAnswerCount += 1
-                correctAnswerLabel.text = String(correctAnswerCount)
-                randomEllement()
-                
+                correct(textF: sender, st: "percentCorrectAnswerKey")
             }
             else {
-                wrongAnswerCount += 1
-                wrongAnswerLabel.text = String(wrongAnswerCount)
-                randomEllement()
-                sender.text = ""
+                wrong(textF: sender)
             }
-        
         case .root:
-            if (Int(sender.text!) ?? 0).qarakusin == firstNum{
-                correctAnswerCount += 1
-                correctAnswerLabel.text = String(correctAnswerCount)
-                randomEllement()
+            if (Int(sender.text!) ?? 0).qarakusin == firstNum {
+                correct(textF: sender, st: "rootCorrectAnswerKey")
             }
             else {
-                wrongAnswerCount += 1
-                wrongAnswerLabel.text = String(wrongAnswerCount)
-                randomEllement()
-                sender.text = ""
+                wrong(textF: sender)
             }
         case .easy:
             if (Int(sender.text ?? "") ?? 0) == actions[gorcoxutyanIndex].0(firstNum,secondNum) {
-                correctAnswerCount += 1
-                correctAnswerLabel.text = String(correctAnswerCount)
-                randomEllement()
-                sender.text = ""
+                correct(textF: sender, st: "easyCorrectAnswerKey")
             }
             else {
-                wrongAnswerCount += 1
-                wrongAnswerLabel.text = String(wrongAnswerCount)
-                randomEllement()
-                sender.text = ""
+                wrong(textF: sender)
             }
         case .hard:
             if (Int(sender.text ?? "") ?? 0) == actions[gorcoxutyanIndex].0(firstNum,secondNum) {
-                correctAnswerCount += 1
-                correctAnswerLabel.text = String(correctAnswerCount)
-                randomEllement()
-                sender.text = ""
+                correct(textF: sender, st: "hardCorrectAnswerKey")
             }
             else {
-                wrongAnswerCount += 1
-                wrongAnswerLabel.text = String(wrongAnswerCount)
-                randomEllement()
-                sender.text = ""
+                wrong(textF: sender)
             }
         }
     }
@@ -176,7 +160,7 @@ class EasyViewController: UIViewController {
     
     func time() {
         timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         randomEllement()
         wrongAnswerLabel.text = "0"
         correctAnswerLabel.text = "0"
@@ -210,7 +194,7 @@ class EasyViewController: UIViewController {
         }
     }
     
-
+    
     /*
      // MARK: - Navigation
      
@@ -220,7 +204,7 @@ class EasyViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-   
+    
     func hashviObshin (str:String) -> (Double?,String?) {
         if str == "" {
             return (0.0,"mutqagreq Arjeq")
@@ -230,33 +214,33 @@ class EasyViewController: UIViewController {
         var gumarmanArjeqner:[String] = []
         if str.first == "-" {
             let componentsArajinArjeq = hashviBazBajGum(str: "-\(String(components[0]))")
-               if componentsArajinArjeq.1 == nil  {
+            if componentsArajinArjeq.1 == nil  {
                 gumarmanArjeqner.append(String(componentsArajinArjeq.0!))
-
-               }
-               else {
-                  return (nil, "tiv@ chi bajanvum 0-i ")
-               }
+                
+            }
+            else {
+                return (nil, "tiv@ chi bajanvum 0-i ")
+            }
         }
         else {
             let componentsArajinArjeq = hashviBazBajGum(str: "\(String(components[0]))")
             if componentsArajinArjeq.1 == nil  {
-                 gumarmanArjeqner.append(String(componentsArajinArjeq.0!))
+                gumarmanArjeqner.append(String(componentsArajinArjeq.0!))
             }
             else {
-               return (nil, "tiv@ chi bajanvum 0-i ")
+                return (nil, "tiv@ chi bajanvum 0-i ")
             }
         }
         if components.count > 1 {
-                for i in 1 ... components.count - 1 {
+            for i in 1 ... components.count - 1 {
                 let arjeqner = hashviBazBajGum(str: "-\(components[i])")
-                    if arjeqner.1 == nil  {
-                        gumarmanArjeqner.append(String(arjeqner.0!))
-                    }
-                    else {
-                        return (nil, "tiv@ chi bajanvum 0-i ")
-                    }
+                if arjeqner.1 == nil  {
+                    gumarmanArjeqner.append(String(arjeqner.0!))
                 }
+                else {
+                    return (nil, "tiv@ chi bajanvum 0-i ")
+                }
+            }
             let arajinArjeq = Double(gumarmanArjeqner[0]) ?? 0
             all = arajinArjeq
             for i in 1 ... gumarmanArjeqner.count - 1 {
@@ -272,10 +256,10 @@ class EasyViewController: UIViewController {
         var all:Double = 0
         let componentsBazmapatkumBajanum = str.split(separator: "+")
         var arjeqner:[Double] = []
-
+        
         for i in componentsBazmapatkumBajanum {
             if Double(i) == nil {
-             let itog = hashvelBazmBaj(strBazBaj: String(i))
+                let itog = hashvelBazmBaj(strBazBaj: String(i))
                 if itog.1 == nil{
                     arjeqner.append(itog.0!)
                 }
@@ -296,26 +280,26 @@ class EasyViewController: UIViewController {
         var sumBaz:Double = 1
         let componentsBaz = strBazBaj.split(separator: "*")
         var componentsBajanum:[String.SubSequence] = []
-            for i in componentsBaz {
-                if i == "0"{
+        for i in componentsBaz {
+            if i == "0"{
                 sumBaz = 0
-                }
-                if let number = Double(i){
-                    sumBaz = sumBaz * number
-                }
-                else {
-                    componentsBajanum.append(i)
-                }
             }
+            if let number = Double(i){
+                sumBaz = sumBaz * number
+            }
+            else {
+                componentsBajanum.append(i)
+            }
+        }
         for g in componentsBajanum {
             let compBaj = g.split(separator: "/")
             var gorcoxutyanArjeq = Double(compBaj[0]) ?? 0
             for m in 1...compBaj.count - 1 {
                 if Double(compBaj[m]) == 0 {
-                   return (nil, "tiv@ chi bajanvum 0-i ")
+                    return (nil, "tiv@ chi bajanvum 0-i ")
                 }
-                 gorcoxutyanArjeq = gorcoxutyanArjeq / (Double(compBaj[m]) ?? 0)
-                }
+                gorcoxutyanArjeq = gorcoxutyanArjeq / (Double(compBaj[m]) ?? 0)
+            }
             sumBaz = sumBaz * gorcoxutyanArjeq
         }
         return (sumBaz, nil)
@@ -377,17 +361,17 @@ class EasyViewController: UIViewController {
         }
         merUzac = datark + String(tokosiComp[0])
         let verjnakanArdyunq = hashviObshin(str: merUzac)
-       if verjnakanArdyunq.1 == nil  {
-           tokos = verjnakanArdyunq.0! / 100
-       }
-       else {
-           return (nil, "tiv@ chi bajanvum 0-i ")
-       }
-     return (tokos,nil)
+        if verjnakanArdyunq.1 == nil  {
+            tokos = verjnakanArdyunq.0! / 100
+        }
+        else {
+            return (nil, "tiv@ chi bajanvum 0-i ")
+        }
+        return (tokos,nil)
     }
     func hashviMiPakagcovArjeq(st:String) ->(Double) {
         var arjeq:Double = 0
-    //    var pakagciMijiArjeq = matchesForRegexInText(regex: regex, text: st).joined()
+        //    var pakagciMijiArjeq = matchesForRegexInText(regex: regex, text: st).joined()
         var comp = st.components(separatedBy: ["("])
         comp[1].removeLast()
         comp[1] = String(hashviObshin(str: comp[1]).0!)
@@ -397,12 +381,12 @@ class EasyViewController: UIViewController {
             arjeq = -hashviObshin(str: newNew).0!
         }
         if comp.joined().contains("--") {
-          let hashvelun = comp.joined().replacingOccurrences(of: "--", with: "+")
+            let hashvelun = comp.joined().replacingOccurrences(of: "--", with: "+")
             arjeq = hashviObshin(str: hashvelun).0!
         }else {
             arjeq = hashviObshin(str: comp.joined()).0!
         }
-       
+        
         return arjeq
     }
 }
@@ -411,3 +395,5 @@ extension Int {
         return self * self
     }
 }
+
+

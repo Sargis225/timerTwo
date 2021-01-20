@@ -85,6 +85,7 @@ class ChoseAnswerViewController: UIViewController {
     func randomEllement(but:UIButton) {
         if but.titleLabel?.text == correctAnswer {
             correctAnswerCount += 1
+            UserDefaults.standard.set(correctAnswerCount,forKey: "choseTheAnswerRecordCountKey")
             correctAnswerLabel.text = "\(correctAnswerName) - \(correctAnswerCount)"
             counter = 0.0
             time()
@@ -155,7 +156,7 @@ class ChoseAnswerViewController: UIViewController {
             corectAnswerButtonsCollection.randomElement()?.setTitle(correctAnswer, for: .normal)
         }
         let alertActionTwo = UIAlertAction(title: "Exit", style: .cancel) { action -> Void in
-            self.performSegue(withIdentifier: "hetViewControllerIdent", sender: nil)
+            self.navigationController?.popToRootViewController(animated: true)
         }
         
         alertController.addAction(alerActionOne)
@@ -184,7 +185,7 @@ class ChoseAnswerViewController: UIViewController {
                 self.correctAnswerLabel.text = ""
             }
             let alertActionTwo = UIAlertAction(title: "\(exitName)", style: .cancel) { action -> Void in
-                self.performSegue(withIdentifier: "hetViewControllerIdent", sender: nil)
+                self.navigationController?.popToRootViewController(animated: true)
             }
             alertController.addAction(alerActionOne)
             alertController.addAction(alertActionTwo)

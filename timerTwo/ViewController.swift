@@ -34,17 +34,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         cell.layer.cornerRadius = 20
         cell.recordLabel.text = "\(record) - "
+        print(cell.corectAnswerCountLabel.text ?? "")
+//        if indexPath.row == 0 {
+//            record(st: "easyCorrectAnswerKey", lable: cell.corectAnswerCountLabel)
+//        }
+//        if indexPath.row == 1 {
+//            record(st: "averangeCorrectAnswerKey", lable: cell.corectAnswerCountLabel)
+//        }
+        switch indexPath.row {
+        case 0:
+            record(st: "easyCorrectAnswerKey", lable: cell.corectAnswerCountLabel)
+        case 1:
+            record(st: "averangeCorrectAnswerKey", lable: cell.corectAnswerCountLabel)
+        case 2:
+            record(st: "rootCorrectAnswerKey", lable: cell.corectAnswerCountLabel)
+        case 3:
+            record(st: "percentCorrectAnswerKey", lable: cell.corectAnswerCountLabel)
+        case 4:
+            record(st: "hardCorrectAnswerKey", lable: cell.corectAnswerCountLabel)
+        case 5:
+            record(st: "choseTheAnswerRecordCountKey", lable: cell.corectAnswerCountLabel)
+        default:
+            print("ok")
+        }
         return cell
     }
     
-    var lavelNamesArray:[String] = []
-    var ident = ""
-    var gamePlay:GameDifficulty!
-    var gameType = GameDifficulty.self
+    func record(st:String,lable:UILabel) {
+        if UserDefaults.standard.integer(forKey: st) > (Int(lable.text ?? "") ?? 0) {
+            lable.text = "\(UserDefaults.standard.integer(forKey: st))"
+        }
+    }
+    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         ident = "goGameIdent"
-        
         switch indexPath.row {
         case 0:
             gamePlay = gameType.easy
@@ -66,6 +90,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBOutlet var lavelTableView: UITableView!
+    
+    var lavelNamesArray:[String] = []
+    var ident = ""
+    var gamePlay:GameDifficulty!
+    var gameType = GameDifficulty.self
+    var record = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         settingsButton.layer.cornerRadius = 20
@@ -74,10 +106,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view.
     }
    
-    var record = ""
+    
+  
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
             view.backgroundColor = colors
             lavelTableView.backgroundColor = colors

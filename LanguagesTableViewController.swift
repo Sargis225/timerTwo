@@ -15,7 +15,9 @@ class LanguagesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
+            view.backgroundColor = colors
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -29,15 +31,23 @@ class LanguagesTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-    let language = ["Հայերեն","English","Русский"]
+//    let language = ["Հայերեն","English","Русский"]
+    let languageArray:[(String,UIImage)] = [("Հայերեն",#imageLiteral(resourceName: "Eraguyn-drosh")),("English",#imageLiteral(resourceName: "unnamed-1")),("Русский",#imageLiteral(resourceName: "russia-flag-icon-free-download")),("France",#imageLiteral(resourceName: "Флаг-Франции"))]
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return language.count
+        return languageArray.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "languaegeCellIdent", for: indexPath)
-        
-        cell.textLabel?.text = language[indexPath.row]
+        cell.textLabel?.textAlignment = .center
+        cell.layer.cornerRadius = 20
+        let imageView = UIImageView(image: languageArray[indexPath.row].1)
+        imageView.frame = CGRect(x: 0, y: 0, width: 100, height: cell.frame.height)
+        cell.addSubview(imageView)
+        cell.textLabel?.textAlignment = .center
+        cell.textLabel?.font = .boldSystemFont(ofSize: 20)
+        cell.textLabel?.text = languageArray[indexPath.row].0
+        cell.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         return cell
         
     }
@@ -45,6 +55,8 @@ class LanguagesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         UserDefaults.standard.set(tableView.cellForRow(at: indexPath)?.textLabel?.text,forKey: "languageKey")
     }
+    
+    
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)

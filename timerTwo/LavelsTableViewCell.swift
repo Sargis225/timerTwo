@@ -12,6 +12,8 @@ class LavelsTableViewCell: UITableViewCell {
     
     @IBOutlet var recordLabel: UILabel!
     
+    @IBOutlet var corectAnswerCountLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
