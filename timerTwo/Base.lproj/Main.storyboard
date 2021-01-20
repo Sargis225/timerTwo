@@ -161,7 +161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dH7-SR-Fdg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2015.9420289855075" y="-11.383928571428571"/>
+            <point key="canvasLocation" x="1855" y="-311"/>
         </scene>
         <!--Chose Answer View Controller-->
         <scene sceneID="UQC-mC-0MH">
@@ -271,7 +271,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eXY-5s-RLa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="187" y="1536"/>
+            <point key="canvasLocation" x="1048" y="1546"/>
         </scene>
         <!--Languages Table View Controller-->
         <scene sceneID="NfI-gH-EcI">
@@ -300,7 +300,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xiv-5C-mkS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-201" y="801"/>
+            <point key="canvasLocation" x="2694" y="1502"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="1pC-GL-qFG">
@@ -332,7 +332,6 @@
                     <navigationItem key="navigationItem" id="P5D-if-jdP"/>
                     <connections>
                         <outlet property="settingsTableView" destination="yLL-WB-Hp9" id="eo1-4M-KjD"/>
-                        <segue destination="iLX-Hx-EVL" kind="show" identifier="languagesIdent" id="wTf-Kd-4QN"/>
                         <segue destination="r6H-hO-Gfh" kind="show" identifier="colorsIdent" id="owk-ej-Uea"/>
                     </connections>
                 </viewController>
@@ -412,6 +411,7 @@
                     <navigationItem key="navigationItem" id="ydT-0A-Ta9"/>
                     <connections>
                         <outlet property="myHistoryTableView" destination="4Qh-Z7-Xiv" id="ZyO-ZJ-ZDw"/>
+                        <outlet property="navigationHistoryBackButton" destination="ydT-0A-Ta9" id="cU5-41-w6h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="saw-5B-UUF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

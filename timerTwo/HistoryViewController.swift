@@ -18,6 +18,18 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     var wrong = ""
     var right = ""
     
+    
+    @IBOutlet var navigationHistoryBackButton: UINavigationItem!
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("00")
+        navigationController?.popToRootViewController(animated: false)
+    }
+    
+    
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         myHistoryTableView.reloadData()

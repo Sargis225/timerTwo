@@ -6,10 +6,13 @@
 //
 
 import UIKit
-
+enum Setting {
+    case language
+    case color
+}
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
+    var setting:Setting!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -79,10 +82,11 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     var label = UILabel()
-    
+    var settingsType = Setting.self
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            performSegue(withIdentifier: "colorsIdent", sender: nil)
+            setting = settingsType.color
+            performSegue(withIdentifier: "colorsIdent", sender: setting)
         }
         if indexPath.section == 1  {
             let cell = tableView.cellForRow(at: indexPath) as! SettingsTableViewCell
@@ -90,13 +94,16 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             cell.showSlider()
         }
         if indexPath.section == 2  {
-            performSegue(withIdentifier: "languagesIdent", sender: nil)
+            setting = settingsType.language
+            performSegue(withIdentifier: "colorsIdent", sender: setting)
         }
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? ColorsTableViewController {
+            vc.settings = setting
+        }
+    }
 
-    
-    
     @IBOutlet var settingsTableView: UITableView!
     
     
