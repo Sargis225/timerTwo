@@ -16,6 +16,20 @@ class ChoseAnswerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        for i in corectAnswerButtonsCollection {
+            i.layer.cornerRadius = 25
+            i.layer.borderWidth = 3
+            i.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        }
+        randomActionLabel.layer.masksToBounds = true
+        correctAnswerLabel.layer.masksToBounds = true
+        randomActionLabel.layer.cornerRadius = 20
+        randomActionLabel.layer.borderWidth = 3
+        randomActionLabel.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        correctAnswerLabel.layer.cornerRadius = 20
+        correctAnswerLabel.layer.borderWidth = 3
+        correctAnswerLabel.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        
         if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
             view.backgroundColor = colors
         }

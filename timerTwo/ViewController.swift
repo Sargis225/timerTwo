@@ -103,6 +103,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         settingsButton.layer.cornerRadius = 20
         lavelTableView.delegate = self
         lavelTableView.dataSource = self
+        lavelTableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
    

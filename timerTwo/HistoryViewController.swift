@@ -23,7 +23,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("00")
+//        print("00")
         navigationController?.popToRootViewController(animated: false)
     }
     
@@ -121,7 +121,7 @@ var actionResult = 0
         myHistoryTableView.backgroundColor = .gray
         myHistoryTableView.dataSource = self
         myHistoryTableView.delegate = self
-        
+        myHistoryTableView.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
     

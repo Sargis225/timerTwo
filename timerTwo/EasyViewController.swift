@@ -9,30 +9,7 @@ import UIKit
 
 class EasyViewController: UIViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // #TODO: kloracnel komponentnery
-        counter = Int(UserDefaults.standard.string(forKey: "timeIntervalKey") ?? "") ?? 0
-        if gameType! == .percent {
-            //            print("aaa")
-            for i in 30...1000 {
-                if i % 100 == 0 {
-                    percentNum.append(Int(i))
-                }
-            }
-            for i in 1...100 {
-                if i % 10 == 0 {
-                    percent.append(Int(i))
-                }
-            }
-        }
-        print(gameType!)
-        time()
-        if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
-            view.backgroundColor = colors
-        }
-        // Do any additional setup after loading the view.
-    }
+    
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var resultTextField: UITextField!
     @IBOutlet var actionLabel: UILabel!
@@ -54,6 +31,44 @@ class EasyViewController: UIViewController {
     var rowResult = 0
     var gameType:GameDifficulty!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        timeLabel.layer.masksToBounds = true
+        timeLabel.layer.cornerRadius = 60
+        timeLabel.layer.borderWidth = 5
+        timeLabel.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        actionLabel.layer.masksToBounds = true
+        actionLabel.layer.cornerRadius = 20
+        correctAnswerLabel.layer.masksToBounds = true
+        wrongAnswerLabel.layer.masksToBounds = true
+        correctAnswerLabel.layer.cornerRadius = 40
+        correctAnswerLabel.layer.borderWidth = 5
+        correctAnswerLabel.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        correctAnswerLabel.backgroundColor = #colorLiteral(red: 0.00168346239, green: 1, blue: 0.1384600168, alpha: 1)
+        wrongAnswerLabel.layer.cornerRadius = 40
+        wrongAnswerLabel.layer.borderWidth = 5
+        wrongAnswerLabel.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        counter = Int(UserDefaults.standard.string(forKey: "timeIntervalKey") ?? "") ?? 0
+        if gameType! == .percent {
+            //            print("aaa")
+            for i in 30...1000 {
+                if i % 100 == 0 {
+                    percentNum.append(Int(i))
+                }
+            }
+            for i in 1...100 {
+                if i % 10 == 0 {
+                    percent.append(Int(i))
+                }
+            }
+        }
+        print(gameType!)
+        time()
+        if let colors = UserDefaults.standard.colorForKey(key: "colorsKey") {
+            view.backgroundColor = colors
+        }
+        // Do any additional setup after loading the view.
+    }
     func correct (textF:UITextField,st:String) {
         correctAnswerCount += 1
         UserDefaults.standard.set(correctAnswerCount,forKey: st)
@@ -160,6 +175,7 @@ class EasyViewController: UIViewController {
     
     func time() {
         timer.invalidate()
+        
         timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
         randomEllement()
         wrongAnswerLabel.text = "0"
